@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>TDD workshop</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/sky.css" id="theme">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <link rel="stylesheet" href="fix.css">
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+	<section class="title">
+	  <h1>TDD workshop</h1>
+	  <h3>Juliusz Gonera</h3>
+	  <p><a href="mailto:jgonera@wikimedia.org">jgonera@wikimedia.org</a></p>
+	</section>
+
+	<section>
+	  <h2>What is TDD?</h2>
+	  <p>Test-Driven Development.</p>
+	  <blockquote>
+	    <p>
+	      The cycle at the heart of TDD is: write a test; write some code to get it working;
+	      refactor the code to be as simple an implementation of the tested features as
+	      possible. Repeat.
+	    </p>
+	    <small>"Growing Object-Oriented Software, Guided by Tests" by Steve Freeman and Nat Pryce</small>
+	  </blockquote>
+
+	  <aside class="notes"><pre>
+	    write tests before or never write them
+	  </pre></aside>
+	</section>
+
+	<section>
+	  <h2>Why do we hate TDD?</h2>
+	  <ul>
+	    <li class="fragment">It's hard</li>
+	    <li class="fragment">The payoff is not immediate</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h2>Why is TDD useful?</h2>
+	  <ul>
+	    <li class="fragment">Prevents regressions</li>
+	    <li class="fragment">Makes refactoring less scary</li>
+	    <li class="fragment">Helps you stay focused</li>
+	    <li class="fragment"><strong>Shapes your code</strong></li>
+	  </ul>
+
+	  <aside class="notes"><pre>
+	    implement just the minimum
+            modular, loosely-coupled, maintainable code
+	  </pre></aside>
+	</section>
+
+	<section>
+	  <h2>Types of tests</h2>
+	  <ul>
+	    <li class="fragment">Unit tests</li>
+	    <li class="fragment"><strong>Acceptance (browser) tests</strong></li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h2>TDD cycle</h2>
+	  <img src="img/tdd.svg" class="stretch">
+	</section>
+
+	<section>
+	  <h2>Do we do TDD?</h2>
+	  <p class="fragment">Most of the time, <strong>no</strong>.</p>
+	  <ul>
+	    <li class="fragment">Tests usually (if ever) written after the code and feature are completed.</li>
+	    <li class="fragment">Resulting software is harder to test because it was not written with tests in mind.</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h2>Tools we use for acceptance tests</h2>
+	  <ul>
+	    <li>Ruby</li>
+	    <li>page-object</li>
+	    <li>Cucumber (a <strong>BDD</strong> framework)</li>
+	  </ul>
+	</section>
+
+	<section>
+	  <h2>What is BDD?</h2>
+	  <p>Behaviour-Driven Development.</p>
+	  <blockquote>
+	    <p>
+	      Behaviour-Driven Development is about implementing an application by
+	      describing its behavior from the perspective of its stakeholders.
+	    </p>
+	    <small>"The RSpec Book" by David Chelimsky and others</small>
+	  </blockquote>
+
+	  <aside class="notes"><pre>
+	    user stories, given/when/then
+	  </pre></aside>
+	</section>
+
+	<section>
+	  <h2>Stories</h2>
+	  <pre><code class="xml">
+Feature: Search
+
+  Scenario: Search suggestions
+    Given I am at random page
+    When I search for: main
+    Then a list of suggested pages should appear
+      And Main Page should be the first result
+	  </code></pre>
+
+	  <aside class="notes"><pre>
+	    the first thing you write
+	  </pre></aside>
+	</section>
+
+	<section>
+	  <h2>Step definitions</h2>
+	  <pre><code class="ruby">
+Given(/^I am at random page$/) do
+  visit RandomPage
+end
+
+When(/^I search for: (.+)$/) do |search_term|
+  on(SearchPage).search_input_element.
+    when_present.send_keys(search_term)
+end
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>Step definitions</h2>
+	  <pre><code class="ruby">
+
+
+
+
+When(/^I search for: (.+)$/) do |search_term|
+  on(SearchPage).search_input_element.
+    when_present.send_keys(search_term)
+end
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>Page objects</h2>
+	  <pre><code class="ruby">
+class SearchPage
+  include PageObject
+
+  # define an input element with attribute id equal
+  # to "searchInput", e.g. <input id="searchInput">
+  # can be accessed using
+  # on(SearchPage).search_input_element
+  text_field(:search_input, id: "searchInput")
+end
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>Installing Ruby</h2>
+	  <p>First install RVM:</p>
+	  <pre><code class="bash">
+$ \curl -sSL https://get.rvm.io | bash -s stable
+	  </code></pre>
+	  <p>Then desired Ruby version:</p>
+	  <pre><code class="bash">
+$ rvm install 2.1.0
+	  </code></pre>
+	  <p>(copy and paste from <a href="https://gist.github.com/jgonera/8450648">http://goo.gl/n270xM</a>)</p>
+	</section>
+
+	<section>
+	  <h2>MediaWiki browser tests</h2>
+	  <p>Clone the repo:</p>
+	  <pre><code class="bash">
+$ git clone https://github.com/jgonera/qa-playground.git
+	  </code></pre>
+	  <p>Install dependencies:</p>
+	  <pre><code class="bash">
+$ cd qa-playground
+$ bundle install
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>MediaWiki-specific settings</h2>
+	  <p>Environmental variables:</p>
+	  <pre><code class="bash">
+export MEDIAWIKI_URL="http://127.0.0.1/index.php/wiki/"
+export MEDIAWIKI_USER="Selenium_user"
+export MEDIAWIKI_PASSWORD="testpass"
+	  </code></pre>
+	  <p>Optionally:</p>
+	  <pre><code class="bash">
+export BROWSER_LABEL=phantomjs # default is firefox
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>Running tests</h2>
+	  <pre><code class="bash">
+# run everything
+$ cucumber
+# run everything and show every step
+$ cucumber -f pretty
+# run specific feature
+$ cucumber features/search.feature
+# run using a different browser
+$ BROWSER_LABEL=phantomjs cucumber
+          </code></pre>
+	</section>
+
+	<section>
+	  <h2>New test scenario</h2>
+	  <pre><code class="xml">
+Feature: Log in
+
+  @wip
+  Scenario: Log in with incorrect password
+    # TODO
+	  </code></pre>
+	  <p>Run WIP scenario using:</p>
+	  <pre><code class="bash">
+$ cucumber -f pretty -t @wip
+          </code></pre>
+	</section>
+
+	<section>
+	  <h2>Story</h2>
+	  <pre><code class="xml">
+Scenario: Log in with incorrect password
+  When I log in with incorrect password
+  Then I see feedback saying "Incorrect password"
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>Useful code snippets</h2>
+	  <pre><code class="ruby">
+# access environmental variable
+ENV['MEDIAWIKI_USER']
+# check if element's text contains a string
+some_element.text.should match Regexp.escape('test')
+# check if element's text equals a string
+some_element.text.should eq 'test'
+          </code></pre>
+	</section>
+
+	<section>
+	  <h2>Step definitions</h2>
+	  <pre><code class="ruby">
+When(/^I log in with incorrect password$/) do
+  on(LoginPage).
+    login_with(ENV['MEDIAWIKI_USER'], 'incorrrect')
+end
+
+Then(/^I see feedback saying "(.*?)"$/) do |msg|
+  on(LoginPage).feedback_element.
+    text.should match Regexp.escape(msg)
+end
+	  </code></pre>
+	</section>
+
+	<section>
+	  <h2>Recommended reads</h2>
+	  <ul>
+	    <li>"The RSpec Book" by David Chelimsky and others</li>
+	    <li>"The Cucumber Book" by Matt Wynne and Aslak Hellesøy?</li>
+	    <li>"Growing Object-Oriented Software, Guided by Tests" by Steve Freeman and Nat Pryce</li>
+	  </ul>
+	</section>
+
+      </div>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+	controls: false,
+	progress: true,
+	history: true,
+	center: false,
+
+	theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+	transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+	// Parallax scrolling
+	// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+	// parallaxBackgroundSize: '2100px 900px',
+
+	// Optional libraries used to extend on reveal.js
+	dependencies: [
+	  { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+	  { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	  { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+	  { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+	  { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+	  { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+	]
+      });
+    </script>
+
+  </body>
+</html>

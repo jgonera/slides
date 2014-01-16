@@ -1,0 +1,38 @@
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .title {
+  text-align: center;
+}
+
+.reveal section img, .reveal blockquote, .reveal pre {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  width: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.reveal p, .reveal li, .reveal h1, .reveal h2, .reveal pre {
+
+  margin-bottom: .5em;
+}
+
+.reveal p, .reveal li {
+  line-height: 1.5;
+}
+
+.reveal h1, .reveal h2 {
+  line-height: 1.1;
+}
+
+.reveal pre {
+  font-size: .8em;
+}
+
+.reveal pre code {
+  padding: 0 1em;
+}
+
