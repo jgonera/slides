@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Using Node.js libraries in PhantomJS</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <link rel="stylesheet" href="../reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/sky.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+      </script>
+
+      <!--[if lt IE 9]>
+      <script src="lib/js/html5shiv.js"></script>
+      <![endif]-->
+    </head>
+
+    <body>
+
+      <div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+
+	  <section>
+	    <h2>Using Node.js libraries in PhantomJS</h2>
+	    <p>Juliusz Gonera</p>
+	    <p>jgonera@gmail.com * <a href="https://github.com/jgonera">github.com/jgonera</a></p>
+	  </section>
+
+	  <section>
+	    <h2>Why?</h2>
+	    <ul>
+	      <li>Save time.</li>
+	      <li>Don't reinvent the wheel.</li>
+	      <li>Build bigger things.</li>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h2>require() in PhantomJS before 1.7</h2>
+	    <ul>
+	      <li>Only built-in modules</li>
+	      <li>No good way of organizing your code</li>
+	      <li>phantomjs-nodify* to the rescue</li>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h2>require() in PhantomJS 1.7 and newer</h2>
+	    <p>Node.js-compatible CommonJS module impementation merged from phantomjs-nodify.</p>
+	    <p>If path doesn't begin with '/', '../' or './':</p>
+	    <ul>
+	      <li>Look for native modules</li>
+	      <li>Look for modules in node_modules directory</li>
+	      <li>Move to the parent directory and look in node_modules</li>
+	      <li>etc.</li>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h2>Stubbing modules</h2>
+	    <p>module1.js:</p>
+	    <pre><code class="javascript">
+require.stub('path', {
+  join: function() { ... }
+});
+
+var something = require('some_node.js_module_that_requires_path');
+	    </code></pre>
+	    <ul>
+	      <li>
+		<strong>main.js</strong>, require('path') error
+		<ul>
+		  <li>
+		    module1.js, require('path') OK
+		    <ul>
+		      <li>submodule1.js, require('path') OK</li>
+		    </ul>
+		  </li>
+		  <li>
+		    module2.js, require('path') <strong>error</strong>
+		  </li>
+		</ul>
+	      </li>
+	    </ul>
+	  </section>
+
+	  <section>
+	    <h2>Wrapper example</h2>
+	    <p>This makes Node.js version of CoffeeScript run on PhantomJS:</p>
+	    <pre><code class="javascript">
+var fs = require('fs');
+
+require.stub('vm');
+require.stub('path');
+require.stub('fs', {
+    readFileSync: function(path, encoding) {
+	return fs.read(path);
+    }
+});
+
+// export original CoffeeScript
+module.exports = require('../coffee-script');
+	    </code></pre>
+	  </section>
+
+	  <section>
+	    <h2>More examples</h2>
+
+	    <p>See WebSpecter*</p>
+	    <p>Uses following Node.js libraries:</p>
+	    <ul>
+	      <li>Mocha</li>
+	      <li>Chai</li>
+	      <li>Commander.js</li>
+	      <li>and their dependencies</li>
+	    </ul>
+
+	    <p><small>* <a href="https://github.com/jgonera/webspecter">github.com/jgonera/webspecter</a></small></p>
+	  </section>
+
+	  <section>
+	    <h2>Thank you</h2>
+	    <br><br>
+	    <ul>
+	      <li>github.com/jgonera/phantomjs-nodify</li>
+	      <li>github.com/jgonera/webspecter</li>
+	      <li>github.com/ariya/phantomjs/pull/283</li>
+	    </ul>
+	  </section>
+
+	</div>
+
+      </div>
+
+      <script src="../reveal.js/lib/js/head.min.js"></script>
+      <script src="../reveal.js/js/reveal.min.js"></script>
+
+      <script>
+
+	// Full list of configuration options available here:
+	// https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+controls: false,
+progress: true,
+history: true,
+center: true,
+
+theme: 'sky', // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/none
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+{ src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+{ src: '../reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+{ src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+{ src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+{ src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+{ src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+
+</script>
+
+	</body>
+      </html>
