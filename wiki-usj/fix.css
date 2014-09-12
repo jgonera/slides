@@ -21,6 +21,10 @@
   margin-bottom: .75em;
 }
 
+.reveal li li {
+  margin-bottom: 0;
+}
+
 .reveal p, .reveal li {
   line-height: 1.5;
 }

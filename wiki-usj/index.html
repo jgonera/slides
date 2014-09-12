@@ -26,7 +26,7 @@
           <p>
             Fundación Wikimedia<br>
             <a href="mailto:jgonera@gmail.com">jgonera@gmail.com</a><br>
-            <a href="http://juliuszgonera.com/slides/wiki-usj/">http://juliuszgonera.com/slides/wiki-tul/</a>
+            <a href="http://juliuszgonera.com/slides/wiki-usj/">http://juliuszgonera.com/slides/wiki-usj/</a>
           </p>
           <p><small>13 de septiembre 2014</small></p>
         </section>
@@ -282,6 +282,10 @@ var Character = Class.extend({
   }
 });
 </code></pre>
+
+          <aside class="notes" data-markdown>
+            * no Backbone porque API raro
+          </aside>
         </section>
 
         <section>
@@ -316,9 +320,362 @@ luke.attack(bob);
 </code></pre>
         </section>
 
+        <section>
+          <h2>Javascript en Mobile Web</h2>
+
+          <ul>
+            <li>
+              View
+              <ul>
+                <li>Overlay</li>
+              </ul>
+            </li>
+            <li>Api</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>View</h2>
+
+          <pre><code class="javascript">
+var Button = View.extend({
+  template: '<button>{{label}}</button><div class="msg"></div>',
+  defaults: {
+    label: 'Tap me'
+  },
+
+  postRender: function() {
+    this.$('.msg').text('Thanks!');
+  }
+});
+
+var button = new Button();
+button.appendTo('body');
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Overlay</h2>
+
+          <img src="img/overlay.png" style="width: 35%;">
+        </section>
+
+        <section>
+          <h2>Overlay</h2>
+
+          <pre><code class="javascript">
+var MyOverlay = Overlay.extend({
+  defaults: {
+    heading: 'Hello'
+  }
+});
+
+var overlay = new MyOverlay();
+button.on('click', function() {
+  overlay.show();
+});
+          </code></pre>
+        </section>
+
+        <section class="draft">
+          <h2>Api</h2>
+
+          <pre><code class="javascript">
+var EditorApi = Api.extend({
+  ...
+});
+
+var EditorOverlay = Overlay.extend({
+  _onSave: function() {
+    ...
+    this.api.save(options).done(function() {
+      // show success message
+    }).fail(function() {
+      // show error message
+    });
+  }
+});
+          </code></pre>
+        </section>
+
+        <section class="draft">
+          <h2>Back button</h2>
+
+          <p>Cuando abrimos overlay, muchos usuarios no van a saber si es una página nueva o no y por el instincto van a usar el botón de atras para cerrarlo.</p>
+          <p class="fragment">Díficil de implementar por mal soporte de History API en Android Browser.</p>
+          <p class="fragment">Por eso usamos el evento <code>hashchange</code>.</p>
+        </section>
+
+        <section>
+          <h2>Rendimiento</h2>
+
+          <ul>
+            <li class="fragment">
+              Cache, cache, cache
+              <ul>
+                <li>Varnish</li>
+                <li>cache del contenido de artículos</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              El mínimo de peticiones posible
+              <ul>
+                <li>Minificar y concatenar todo el JS y CSS</li>
+                <li>Incorporar ficheros gráficos en CSS</li>
+              </ul>
+            </li>
+            <li class="fragment">Gzip para todas las peticiones no binarias</li>
+            <li class="fragment">Optimización de la compresión de imágenes (optipng, advpng, advdef, svgo)</li>
+          </ul>
+
           <aside class="notes" data-markdown>
-            * no Backbone porque API raro
+            * reglas principales
           </aside>
+        </section>
+
+        <section>
+          <h2>Tests</h2>
+
+          <ul>
+            <li>QUnit en JavaScript</li>
+            <li>PHPUnit en PHP</li>
+            <li>Cucumber + Watir (Ruby) para los tests en el navegador</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Tests en el navegador</h2>
+
+          <pre><code>
+Feature: Toggling sections
+
+  Scenario: Opening a section on mobile
+    Given I am using the mobile site
+      And I go to a page that has sections
+    When I click on the first collapsible section heading
+    Then I see the content of the first section
+    </code></pre>
+        </section>
+
+        <section>
+          <h2>Git hooks</h2>
+
+          <div class="fragment">
+            <p>Antes de <code>git commit</code>:</p>
+            <ul>
+              <li>JSHint</li>
+              <li>QUnit</li>
+              <li>PHPLint</li>
+              <li>PHPUnit</li>
+              <li>Compresión de PNG y SVG</li>
+            </ul>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * cuanta gente conoce git?
+            * cuanta git hooks?
+          </aside>
+        </section>
+
+        <section>
+          <h2>Mobile Apps</h2>
+
+          <p>La primera versión en PhoneGap.</p>
+          <ul class="fragment">
+            <li>Muy difícil de depurar.</li>
+            <li>Problemas con rendimiento.</li>
+            <li>Problemas con diferencias visuales en plataformas con diferentes navegadores.</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * parece buena idea, pero resulta complicado con apps que no sean muy basicas
+          </aside>
+        </section>
+
+        <section>
+          <h2>Wiki Loves Monuments</h2>
+
+          XXX screenshot
+
+          <aside class="notes" data-markdown>
+            * todavia en PhoneGap
+          </aside>
+        </section>
+
+        <section>
+          <h2>Wikimedia Commons</h2>
+
+          <p>App dedicada para subir fotos, para "power users".</p>
+          <p class="fragment">Las primeras apps nativas, para iOS y Android.</p>
+
+          <aside class="notes" data-markdown>
+            * Wikimedia Commons - repositorio de imagenes, videos y audio para Wikipedia (y otros proyectos)
+            * smartphones tienen mejores camaras, es mas facil hacer una buena foto que escribir (editar)
+          </aside>
+        </section>
+
+        <section>
+          <h2>Nuevas apps nativas de Wikipedia</h2>
+
+          <p>Mobile Web no está mal, pero los navegadores móviles todavía no son tan buenos como los del escritorio.</p>
+          <ul class="fragment">
+            <li>Más rápidas, más responsivas</li>
+            <li>La posibilidad de leer offline</li>
+            <li>De momento no optimizadas para tabletas</li>
+            <li>Usan API de Mobile Web para obtener el contenido</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * leer offline, importante en países sin accesso a Internet facíl
+            * contenido en mobile web y apps deberia ser igual
+          </aside>
+        </section>
+
+        <section>
+          <h2>App para Android</h2>
+
+          <img src="img/mobile-android.png" style="width: 35%;">
+        </section>
+
+        <section>
+          <h2>App para Android</h2>
+
+          <ul>
+            <li>Maven (pronto Gradle).</li>
+            <li>Unit tests y functional tests, de momento requieren un dispositivo Android o un emulador.</li>
+            <li>En el futuro (cercano) Android Studio como el entorno de desarrollo.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>App para iOS</h2>
+
+          <img src="img/mobile-ios.jpg" style="width: 40%;">
+        </section>
+
+        <section>
+          <h2>Contribuciones móviles</h2>
+
+          <p>Al principio Mobile Web servía solo para leer Wikipedia.</p>
+          <p class="fragment">Después del éxito de Wiki Loves Monuments y la app de Wikimedia Commons, introdujimos una posibilidad de subir fotos en Mobile Web.</p>
+          <p class="fragment">Al principio nos emocionamos mucho con la cantidad de contribuciones...</p>
+          <p class="fragment">...pero pronto nos decepcionamos viendo que tipo de fotos eran.</p>
+
+
+          <aside class="notes" data-markdown>
+            * dos modos - articulos que no tienen ninguna imagen y una pagina de uploads
+          </aside>
+        </section>
+
+        <section>
+          <h2>Selfie apocalypse</h2>
+
+          XXX image
+
+          <aside class="notes" data-markdown>
+            * la gente va a subir lo mismo que a Facebook o Instagram
+            * hace poco lo quitamos
+          </aside>
+        </section>
+
+        <section>
+          <h2>Editor móvil</h2>
+
+          <p class="fragment">A quien le gusta escribir en el móvil?</p>
+          <p class="fragment">A nadie. Pero la gente lo hace de todas formas.</p>
+          <p class="fragment">El primer editor en Mobile Web era solo un experimento, pero los usuarios estaban muy interesados.</p>
+
+          XXX numero de edicion y editores
+
+          <aside class="notes" data-markdown>
+            * quien va a escribir un articulo de Wikipedia con su movil?
+            * corregir errores, anadir datos pequenos
+          </aside>
+        </section>
+
+        <section>
+          <h2>Editor Visual</h2>
+
+          <p>El wikitexto es difícil de escribir en los dispositivos móviles.</p>
+
+          XXX screenshot
+        </section>
+
+        <section>
+          <h2>Editor Visual</h2>
+
+          <p>Editor Visual se puede activar en las tabletas.</p>
+
+          XXX como
+        </section>
+
+        <section>
+          <h2>Editor Visual</h2>
+
+          XXX screenshot
+        </section>
+
+        <section>
+          <h2>Microcontribuciones</h2>
+
+          <p>Hemos fallado con las fotos, pero que otro tipo de contribuciones pequeñas podemos intentar?</p>
+
+          <p class="fragment">WikiData, un repositorio de datos estructurados.</p>
+
+          <aside class="notes" data-markdown>
+            * Wikipedia tiene mucha informacion, pero sin estructura
+            * ejemplo - poblacion de una ciudad
+          </aside>
+        </section>
+
+        <section>
+          <h2>Juego de WikiData</h2>
+
+          XXX screenshot
+        </section>
+
+        <section>
+          <h2>Como planeamos el trabajo</h2>
+
+          <p class="fragment">Usamos metodologías ágiles.</p>
+          <ul>
+            <li class="fragment">Tenemos sprints de 2 semanas.</li>
+            <li class="fragment">Escribimos "stories".</li>
+            <li class="fragment">Repasamos stories, product manager + ingeñero(s) + dieseñador(es).</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * tanto web como apps
+          </aside>
+        </section>
+
+        <section>
+          <h2>Trello</h2>
+
+          <img src="img/trello.png" style="width: 100%;">
+
+          <aside class="notes" data-markdown>
+            * antes Mingle, pero demasiado complicado
+            * en el futuro Phabricator
+          </aside>
+        </section>
+
+        <section>
+          <h2>Como coordinamos</h2>
+
+          <ul>
+            <li class="fragment">Hacemos standups los lunes, miércoles y viernes.</li>
+            <li class="fragment">En los standups decimos que estamos haciendo y si necesitamos ayuda de otros miembros del equipo u otros equipos.</li>
+            <li class="fragment">También miramos los bugs que vinieron en los últimos dos días y decidimos su prioridad.</li>
+            <li class="fragment">Todos los meetings tienen Google Hangout para participantes fuera de la oficina.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Hangout</h2>
+
+          <img src="img/hangout.jpg" style="width: 100%;">
+        </section>
 
         <section>
           <h2>Beta features</h2>

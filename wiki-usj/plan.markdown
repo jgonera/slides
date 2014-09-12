@@ -24,6 +24,7 @@
     * Conceptos basicos, overlays, back button (hashchange)
     * Otras cosas importantes, pocas peticiones, inline assets
     * Tests en el navegador
+    * Git hooks
 * Apps
     * Antigua version en PhoneGap (dificil de desarollar y depurar)
     * WikiLovesMonuments
@@ -33,6 +34,7 @@
     * Muchas esperanzas con imágenes después de WLM y Wikimedia Commons, realmente pocas fotos de calidad
     * Editor como un experimento, mucha gente interesada
     * Editor Visual para tabletas
+    * WikiData game
 
 * Metodologías ágiles
     * Como planeamos el trabajo (sprints, stories, story review)
@@ -43,6 +45,7 @@
     * Usamos git y gerrit, bugzilla
     * MediaWiki-Vagrant
     * Docs (doc.wikimedia.org, mediawiki.org)
+    * URLs de repositorios
 
 
 * Other projects
