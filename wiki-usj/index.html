@@ -21,14 +21,14 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section class="center">
-          <h1>Wikipedia móvil: pasado, presente y futuro</h1>
+          <h1>Wikipedia móvil: pasado, presente y&nbsp;futuro</h1>
           <h3>Juliusz Gonera</h3>
-          <p>
+          <p style="line-height: 1">
             Fundación Wikimedia<br>
             <a href="mailto:jgonera@gmail.com">jgonera@gmail.com</a><br>
             <a href="http://juliuszgonera.com/slides/wiki-usj/">http://juliuszgonera.com/slides/wiki-usj/</a>
           </p>
-          <p><small>13 de septiembre 2014</small></p>
+          <p><small>13 de septiembre 2014<br>256º día del año</small></p>
         </section>
 
         <section>
@@ -631,7 +631,7 @@ Feature: Toggling sections
         <section>
           <h2>Juego de WikiData</h2>
 
-          XXX screenshot
+          <img src="img/wikidata-game.png" style="width: 90%;">
         </section>
 
         <section>
@@ -661,7 +661,7 @@ Feature: Toggling sections
         </section>
 
         <section>
-          <h2>Como coordinamos</h2>
+          <h2>Como coordinamos el trabajo</h2>
 
           <ul>
             <li class="fragment">Hacemos standups los lunes, miércoles y viernes.</li>
@@ -675,6 +675,77 @@ Feature: Toggling sections
           <h2>Hangout</h2>
 
           <img src="img/hangout.jpg" style="width: 100%;">
+        </section>
+
+        <section>
+          <h2>Como participar</h2>
+
+          <p>No hay que trabajar para la fundación. Todos los proyectos de la fundación son <strong>open source</strong>.</p>
+          <ul>
+            <li><a href="https://git.wikimedia.org/">https://git.wikimedia.org/</a></li>
+            <li><a href="https://gerrit.wikimedia.org/">https://gerrit.wikimedia.org/</a></li>
+            <li><a href="https://bugzilla.wikimedia.org/">https://bugzilla.wikimedia.org/</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Como saber que hacer?</h2>
+
+          <ul>
+            <li><a href="https://lists.wikimedia.org/mailman/listinfo/mobile-l">Mobile-l @ https://lists.wikimedia.org/</a></li>
+            <li>#wikimedia-mobile @ Freenode IRC</li>
+            <li>Bugzilla</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Dónde buscar ayuda?</h2>
+
+          <ul>
+            <li><a href="https://www.mediawiki.org/">https://www.mediawiki.org/</a> (un poco desorganizado, mejor usar el buscador)</li>
+            <li><a href="https://doc.wikimedia.org/">https://doc.wikimedia.org/</a></li>
+            <li>Lista de correo (Mobile-l) o IRC (#wikimedia-mobile)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Vagrant</h2>
+
+          <p>MediaWiki es un proyecto grande y complejo. La instalación de todas las dependencias y servidores puede ser confusa.</p>
+          <p class="fragment"><a href="https://www.mediawiki.org/wiki/MediaWiki-Vagrant">MediaWiki-Vagrant</a>, un entorno virtual automatizado para los desarrolladores.</p>
+          <p class="fragment">Usa VirtualBox para crear una máquina virtual con Ubuntu y todas las dependencias.</p>
+        </section>
+
+        <section>
+          <h2>Como usar Vagrant?</h2>
+
+          <p>Primero instala <a href="http://git-scm.com/">Git</a>, <a href="https://www.virtualbox.org/">VirtualBox</a> y <a href="https://www.vagrantup.com/">Vagrant</a>.</p>
+          <p>Luego ejecuta:</p>
+          <pre><code class="bash">
+$ git clone https://gerrit.wikimedia.org/r/mediawiki/vagrant
+$ cd vagrant
+$ git submodule update --init --recursive
+$ ./setup.sh  # o setup.bat en Windows
+$ vagrant up
+</code></pre>
+
+          <p><small>(va a descargar Ubuntu y dependencias, puede tardar hasta una hora)</small></p>
+        </section>
+
+        <section>
+          <h2>Como usar Vagrant?</h2>
+
+          <pre><code>
+$ vagrant up
+$ vagrant enable-role mobilefrontend # solo una vez
+$ vagrant provision # solo una vez
+</code></pre>
+
+          <p>Para apagar la máquina:</p>
+
+          <pre><code>
+$ vagrant suspend
+</code></pre>
         </section>
 
         <section>
