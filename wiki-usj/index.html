@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Wikipedia móvil: pasado, presente y futuro</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/sky.css" id="theme">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <link rel="stylesheet" href="fix.css">
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section class="center">
+          <h1>Wikipedia móvil: pasado, presente y futuro</h1>
+          <h3>Juliusz Gonera</h3>
+          <p>
+            Fundación Wikimedia<br>
+            <a href="mailto:jgonera@gmail.com">jgonera@gmail.com</a><br>
+            <a href="http://juliuszgonera.com/slides/wiki-usj/">http://juliuszgonera.com/slides/wiki-tul/</a>
+          </p>
+          <p><small>13 de septiembre 2014</small></p>
+        </section>
+
+        <section>
+          <h2>Yo</h2>
+          <ul>
+            <li>Ingeniero de programación de Łódź, Polonia.</li>
+            <li>Estudiante Erasmus en Universidad Politécnica de Valencia.</li>
+        </section>
+
+        <section>
+          <h2>Fundación Wikimedia</h2>
+          <blockquote>
+            <p>
+              La misión de la Fundación Wikimedia es facultar y animar a la gente de todo el mundo a reunir y desarrollar contenido educativo neutral bajo una licencia de contenido libre o en el dominio público, y a difundirla de manera efectiva y global.
+            </p>
+            <p>
+              (...) La Fundación proporcionará y mantendrá el contenido educativo de sus proyectos en Internet sin cargo alguno a perpetuidad.
+            </p>
+            <small><a href="https://meta.wikimedia.org/wiki/Mission/es">https://meta.wikimedia.org/wiki/Mission/es</a></small>
+          </blockquote>
+        </section>
+
+        <section>
+          <h2>Fundación Wikimedia</h2>
+          <blockquote>
+            <p>
+              Imagina un mundo en donde cada persona del planeta pueda tener <strong>acceso libre a la suma total de todo el conocimiento humano</strong>. Eso es lo que estamos haciendo.
+            </p>
+            <small>Jimmy Wales</small>
+
+          <aside class="notes" data-markdown>
+            * not only Wikipedia, more later
+          </aside>
+          </blockquote>
+        </section>
+
+        <section>
+          <h2>Entonces trabajas gratis?</h2>
+          <p class="fragment">No.</p>
+          <p class="fragment">El contenido esta creado por voluntarios.</p>
+          <p class="fragment">Hacer que Wikipedia (y otros proyectos) funcione es un trabajo de hornada completa.</p>
+          <p class="fragment">Nuestros fondos vienen de donaciones, tanto de los particulares como de las empresas.</p>
+        </section>
+
+        <section>
+          <h2>Dónde?</h2>
+          <ul>
+            <li class="fragment">San Francisco, California, USA (~120 personas)</li>
+            <li class="fragment">Resto del mundo, a distancia (~50 personas)</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * Pau, Nuria
+          </aside>
+        </section>
+
+        <section>
+          <h2>Quien?</h2>
+          <ul>
+            <li>38% extranjeros (no de EEUU)</li>
+            <li>72% han vivido fuera de su país</li>
+            <li>46% son wikipedistas</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>2012-2013 en numeros</h2>
+          <ul>
+            <li><strong>Mitad de los mil millones lectores</strong> cada mes...</li>
+            <li>...en más que <strong>280 idiomas</strong>.</li>
+            <li>Colaboradores hiceron <strong>160.2 millones de cambios</strong>,</li>
+            <li>añadieron <strong>4.9 millones de artículos en Wikipedia</strong>,</li>
+            <li><strong>subieron 4.3 millones</strong> de imágenes, ficheros de audio y video.</li>
+          </ul>
+          <small><a href="http://upload.wikimedia.org/wikipedia/commons/c/ce/Wmf_AR12_v11_SHIP_2pp_hyper_14jan14.pdf">Wikimedia Foundation 2012-2013 Annual Report</a></small>
+
+          <aside class="notes" data-markdown>
+            * everything public, annual report
+          </aside>
+        </section>
+
+        <section>
+          <h2>Reglas de Wikipedia</h2>
+          <ul>
+            <li>Community-driven.</li>
+            <li>Everyone can edit, edits go live immediately. <strong>Be bold</strong>.</li>
+            <li>Content is licensed under free licenses (usually Creative Commons).</li>
+            <li>Paid editing in most cases is forbidden (conflict of interest).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Otras páginas</h2>
+          <img alt="Other web sites' logos" src="img/websites.png" style="width: 100%;">
+        </section>
+
+        <section>
+          <h2>Software</h2>
+          <p class="fragment">Todas las páginas usan <a href="https://www.mediawiki.org/">MediaWiki</a>.</p>
+          <ul>
+            <li class="fragment">Open source, todos pueden contribuir.</li>
+            <li class="fragment">Soporte para muchos idiomas y escritos, también de escritura de derecha a izquierda.</li>
+            <li class="fragment">Tiene un sistema de extensiones.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Retos y dificultades</h2>
+          <img class="fragment" alt="LTR example" src="img/ltr.png" style="width: 100%; margin-bottom: .5em;">
+          <img class="fragment" alt="RTL example" src="img/rtl.png" style="width: 100%;">
+
+          <aside class="notes" data-markdown>
+            * symbols that are not universally known or offensive in some cultures
+            * different fonts/sizes
+            * RTL languages, sliding menu
+          </aside>
+        </section>
+
+        <section>
+          <h2>Retos y dificultades</h2>
+          <ul>
+            <li class="fragment">Mucho tráfico.</li>
+            <li class="fragment">Comunidad caprichiosa.</li>
+            <li class="fragment">Asuntos legales.</li>
+            <li class="fragment">Mucho trabajo, pocas personas.</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * half billion users a month
+            * community resistant to change (VE, typography, media viewer)
+            * people trying to sue Wikipedia
+            * Facebook's team for like button, our mobile team
+          </aside>
+        </section>
+
+        <section>
+          <h2>Proyectos principales</h2>
+          <ul>
+            <li><strong>Mobile Web + Apps</strong></li>
+            <li>VisualEditor</li>
+            <li>Flow</li>
+            <li>Experimentos beta</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * VE on mobile
+          </aside>
+        </section>
+
+        <section>
+          <h2>Mobile Web</h2>
+          <img alt="Mobile web design" src="img/mobile-web.png" style="width: 100%;">
+
+          <aside class="notes" data-markdown>
+            * 7 people (2 designers, part time)
+            * foreground - what we have
+            * background - tablets
+            * mejor diseno - por que?
+          </aside>
+        </section>
+
+        <section>
+          <h2>Mobile Apps</h2>
+          <img alt="Mobile app design" src="img/mobile-app.png" style="width: 100%;">
+
+          <aside class="notes" data-markdown>
+            * 8 people (2 designers, part time)
+          </aside>
+        </section>
+
+        <section>
+          <h2>Evolución de Mobile</h2>
+          <ul style="font-size: 0.8em">
+            <li>Junio 2009: Primera versión de Mobile Web en Ruby</li>
+            <li>Septiembre 2011: Segunda versión de Mobile Web en PHP</li>
+            <li>Marzo 2012: Nuevo dieseño de Mobile Web</li>
+            <li>Abril 2012: La primera app de Wikipedia en PhoneGap</li>
+            <li>Septiembre 2012: Wiki Loves Monuments app</li>
+            <li>Marzo 2013: App para Wikimedia Commons</li>
+            <li>Junio 2014: Mobile web por defecto para tabletas</li>
+            <li>Julio 2014: Nuevas apps para iOS and Android</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Primera versión de Mobile Web</h2>
+          <img src="img/mobile-v1.jpg" style="width: 45%;">
+
+          <aside class="notes" data-markdown>
+            * primero mobile web
+            * applicacion separada en Ruby que transformaba HTML de version desktop
+          </aside>
+        </section>
+
+        <section>
+          <h2>Nuevo diseño de Mobile Web</h2>
+          <img src="img/mobile-v2.jpg" style="width: 45%;">
+
+          <aside class="notes" data-markdown>
+            * extension de MW en vez de applicacion separada en Ruby
+          </aside>
+        </section>
+
+        <section>
+          <h2>Mobile Web ahora</h2>
+          <img src="img/mobile-v3a.png" style="display: inline-block; width: 30%;">
+          <img src="img/mobile-v3b.png" style="display: inline-block; width: 30%;">
+          <img src="img/mobile-v3c.png" style="display: inline-block; width: 30%;">
+        </section>
+
+        <section>
+          <h2>Dos niveles de soporte</h2>
+          <ul>
+            <li>
+              Con JavaScript
+              <ul>
+                <li>todos los smartphones modernos</li>
+                <li>tabletas</li>
+              </ul>
+            </li>
+            <li>
+              Sin JavaScript
+              <ul>
+                <li>móviles antiguos</li>
+                <li>Opera Mini</li>
+              </ul>
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * antes tres niveles
+            * no solo JS/no-JS, tb media queires
+            * full JS tiene editor, hasta hace poco uploads (luego mas)
+          </aside>
+        </section>
+
+        <section>
+          <h2>JavaScript en Mobile Web</h2>
+
+          <p>Un framework pequeño inspirado por Backbone.</p>
+          <pre><code class="javascript">
+var Character = Class.extend({
+  // constructor
+  initialize: function(name) {
+    this.name = name;
+  },
+
+  attack: function(other) {
+    console.log(this.name + ' attacks ' + other.name +
+      ' with ' + this.weapon);
+  }
+});
+</code></pre>
+        </section>
+
+        <section>
+          <h2>JavaScript en Mobile Web</h2>
+
+          <pre><code class="javascript">
+var Jedi = Character.extend({
+  weapon: 'light sabre'
+});
+
+var Cat = Character.extend({
+  weapon: 'fangs',
+
+  initialize: function(name) {
+    this._super(name + 'cat');
+  }
+});
+</code></pre>
+        </section>
+
+        <section>
+          <h2>JavaScript en Mobile Web</h2>
+
+          <pre><code class="javascript">
+var luke = new Jedi('Luke');
+var bob = new Cat('Bob');
+
+bob.attack(luke);
+// => 'Bobcat attacks Luke with fangs'
+luke.attack(bob);
+// => 'Luke attacks Bobcat with light sabre'
+</code></pre>
+        </section>
+
+          <aside class="notes" data-markdown>
+            * no Backbone porque API raro
+          </aside>
+
+        <section>
+          <h2>Beta features</h2>
+          <img alt="Beta features" src="img/beta.png" style="width: 100%;">
+        </section>
+
+        <section>
+          <h2>Hovercards</h2>
+          <img alt="Beta features" src="img/hovercards.png" style="width: 100%;">
+        </section>
+
+        <section>
+          <h2>Media Viewer</h2>
+          <img alt="Beta features" src="img/mediaviewer.png" style="width: 100%;">
+        </section>
+
+        <section>
+          <h2>Wikipedia para todos</h2>
+          <p>Wikipedia Zero, un programa que permite el acceso móvil de <strong>tarifa de datos gratuito</strong> a las páginas de Wikipedia en países del tercer mundo.</p>
+        </section>
+
+        <section>
+          <h2>Alcance de Wikipedia Zero</h2>
+          <img alt="Wikipedia Zero map" src="img/zero-reach.png" style="width: 80%;">
+        </section>
+
+        <section>
+          <h2>Wikipedia en Korea del Norte</h2>
+          <p>Park Sang Hak &amp; Fighters for a Free North Korea</p>
+          <p><img alt="Balloons" src="img/nk.jpg" style="width: 60%;"></p>
+          <small><a href="http://arstechnica.com/tech-policy/2014/02/north-korean-defector-fights-pyongyang-with-thumbdrive-laden-balloons/">
+              North Korean defector fights Pyongyang with thumbdrive-laden balloons</a></small>
+
+          <aside class="notes" data-markdown>
+            * not us, but we support
+            * pendrives with offline Wikipedia
+            * assessination attempt
+          </aside>
+        </section>
+
+        <section>
+          <h2>San Francisco</h2>
+          <img alt="San Francisco" src="img/sf1.jpg" style="width: 80%;">
+        </section>
+
+        <section>
+          <h2>San Francisco</h2>
+          <img alt="San Francisco" src="img/sf2.jpg" style="width: 100%;">
+        </section>
+
+        <section>
+          <h2>San Francisco</h2>
+          <img alt="San Francisco" src="img/sf3.jpg" style="width: 45%;">
+        </section>
+
+        <section>
+          <h2>San Francisco</h2>
+          <img alt="San Francisco" src="img/sf4.jpg" style="width: 45%;">
+        </section>
+
+        <section>
+          <h2>San Francisco</h2>
+          <img alt="San Francisco" src="img/sf5.jpg" style="width: 80%;">
+        </section>
+
+        <section>
+          <h2>Tech culture, meetups</h2>
+          <ul>
+            <li>Hear people talking about their newest pet projects on the bus.</li>
+            <li>Go to talks and presentations held by the best people in the industry.</li>
+            <li>But not only, lots of other events, festivals, happenings.</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * not only locals, many conferences
+          </aside>
+        </section>
+
+        <section>
+          <h2>California</h2>
+          <img alt="California" src="img/cal1.jpg" style="width: 80%;">
+        </section>
+
+        <section>
+          <h2>California</h2>
+          <img alt="California" src="img/cal2.jpg" style="width: 45%;">
+        </section>
+
+        <section>
+          <h2>California</h2>
+          <img alt="California" src="img/cal3.jpg" style="width: 100%;">
+        </section>
+
+        <section>
+          <h2>California</h2>
+          <img alt="California" src="img/cal4.jpg" style="width: 80%;">
+        </section>
+
+        <section>
+          <h2>Trabajar para Wikimedia</h2>
+          <p><a href="http://wikimediafoundation.org/wiki/Work_with_us">http://wikimediafoundation.org/wiki/Work_with_us</a></p>
+          <ul>
+            <li>Trabajar sobre algo importante y significativo.</li>
+            <li>Gente interesante y muy motivada.</li>
+            <li>Oficina en el centro de San Francisco.</li>
+            <li>Horario flexible.</li>
+            <li>Oportunidades de viajar.</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * working remotely over a month a year
+            * Hong Kong, India, Mexico
+            * Partners, Victor
+            * easier to get visa, anytime
+          </aside>
+        </section>
+
+        <section>
+          <h2>Otras formas de contribuir</h2>
+          <ul>
+            <li><a href="https://developers.google.com/open-source/soc/">Google Summer of Code</a></li>
+            <li><a href="https://wiki.gnome.org/OutreachProgramForWomen">GNOME's Outreach Program for Women</a></li>
+            <li>Voluntariado</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * open source, you can fix a bug in Wikipedia (and other web sites that use MW)!
+          </aside>
+        </section>
+
+        <section class="center">
+          <h2>Gracias</h2>
+          <p>Preguntas?</p>
+
+          <aside class="notes" data-markdown>
+            * Wikipedia Zero in South Africa https://www.youtube.com/watch?v=0nTVAmstteM
+          </aside>
+        </section>
+      </div>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: false,
+        //width: 1000,
+        //height: 700,
+        margin: 0.1,
+        maxScale: 10,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>
