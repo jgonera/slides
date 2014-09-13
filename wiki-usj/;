@@ -97,16 +97,15 @@
         <section>
           <h2>2012-2013 en numeros</h2>
           <ul>
-            <li class="fragment"><strong>Mitad de los mil millones lectores</strong> cada mes (~30% por la versión móvil).</li>
-            <li class="fragment">Más que <strong>280 idiomas</strong>.</li>
-            <li class="fragment">Colaboradores hiceron <strong>160.2 millones de cambios</strong>,</li>
-            <li class="fragment">añadieron <strong>4.9 millones de artículos en Wikipedia</strong>,</li>
-            <li class="fragment"><strong>subieron 4.3 millones</strong> de imágenes, ficheros de audio y video.</li>
+            <li><strong>Mitad de los mil millones lectores</strong> cada mes...</li>
+            <li>...en más que <strong>280 idiomas</strong>.</li>
+            <li>Colaboradores hiceron <strong>160.2 millones de cambios</strong>,</li>
+            <li>añadieron <strong>4.9 millones de artículos en Wikipedia</strong>,</li>
+            <li><strong>subieron 4.3 millones</strong> de imágenes, ficheros de audio y video.</li>
           </ul>
           <small><a href="http://upload.wikimedia.org/wikipedia/commons/c/ce/Wmf_AR12_v11_SHIP_2pp_hyper_14jan14.pdf">Wikimedia Foundation 2012-2013 Annual Report</a></small>
 
           <aside class="notes" data-markdown>
-            * saben cuantos usuarios visitan?
             * everything public, annual report
           </aside>
         </section>
@@ -114,15 +113,11 @@
         <section>
           <h2>Reglas de Wikipedia</h2>
           <ul>
-            <li>Conducido por la comunidad.</li>
-            <li>Todos pueden editar, cambios se ven inmediatamente.</li>
-            <li>Contenido disponible bajo licencias libres (típicamente Creative Commons).</li>
-            <li>En la mayoría de los casos no permite editar por dinero (conflicto de interés).</li>
+            <li>Community-driven.</li>
+            <li>Everyone can edit, edits go live immediately. <strong>Be bold</strong>.</li>
+            <li>Content is licensed under free licenses (usually Creative Commons).</li>
+            <li>Paid editing in most cases is forbidden (conflict of interest).</li>
           </ul>
-
-          <aside class="notes" data-markdown>
-            * todos pueden? como se evita vandalismo
-          </aside>
         </section>
 
         <section>
@@ -142,6 +137,18 @@
 
         <section>
           <h2>Retos y dificultades</h2>
+          <img class="fragment" alt="LTR example" src="img/ltr.png" style="width: 100%; margin-bottom: .5em;">
+          <img class="fragment" alt="RTL example" src="img/rtl.png" style="width: 100%;">
+
+          <aside class="notes" data-markdown>
+            * symbols that are not universally known or offensive in some cultures
+            * different fonts/sizes
+            * RTL languages, sliding menu
+          </aside>
+        </section>
+
+        <section>
+          <h2>Retos y dificultades</h2>
           <ul>
             <li class="fragment">Mucho tráfico.</li>
             <li class="fragment">Comunidad caprichiosa.</li>
@@ -156,34 +163,6 @@
             * people trying to sue Wikipedia
             * Facebook's team for like button, our mobile team
           </aside>
-        </section>
-
-        <section>
-          <h2>Retos y dificultades</h2>
-
-          <p>Soporte para varios idiomas.</p>
-          <img class="fragment" alt="LTR example" src="img/ltr.png" style="width: 90%; margin-bottom: .5em;">
-          <img class="fragment" alt="RTL example" src="img/rtl.png" style="width: 90%;">
-
-          <aside class="notes" data-markdown>
-            * symbols that are not universally known or offensive in some cultures
-            * different fonts/sizes
-            * RTL languages, sliding menu
-          </aside>
-        </section>
-
-        <section>
-          <h2>Retos y dificultades</h2>
-
-          <p>Contenido no preparado para pantallas pequeñas.</p>
-          <img src="img/einstein-desktop.png" style="width: 100%;">
-        </section>
-
-        <section>
-          <h2>Retos y dificultades</h2>
-
-          <p>Contenido no preparado para pantallas pequeñas.</p>
-          <img src="img/einstein-mobile.png" style="width: 30%;">
         </section>
 
         <section>
@@ -224,14 +203,14 @@
         <section>
           <h2>Evolución de Mobile</h2>
           <ul style="font-size: 0.8em">
-            <li class="fragment">Junio 2009: Primera versión de Mobile Web en Ruby</li>
-            <li class="fragment">Septiembre 2011: Segunda versión de Mobile Web en PHP</li>
-            <li class="fragment">Marzo 2012: Nuevo dieseño de Mobile Web</li>
-            <li class="fragment">Abril 2012: La primera app de Wikipedia en PhoneGap</li>
-            <li class="fragment">Septiembre 2012: Wiki Loves Monuments app</li>
-            <li class="fragment">Marzo 2013: App para Wikimedia Commons</li>
-            <li class="fragment">Junio 2014: Mobile web por defecto para tabletas</li>
-            <li class="fragment">Julio 2014: Nuevas apps para iOS and Android</li>
+            <li>Junio 2009: Primera versión de Mobile Web en Ruby</li>
+            <li>Septiembre 2011: Segunda versión de Mobile Web en PHP</li>
+            <li>Marzo 2012: Nuevo dieseño de Mobile Web</li>
+            <li>Abril 2012: La primera app de Wikipedia en PhoneGap</li>
+            <li>Septiembre 2012: Wiki Loves Monuments app</li>
+            <li>Marzo 2013: App para Wikimedia Commons</li>
+            <li>Junio 2014: Mobile web por defecto para tabletas</li>
+            <li>Julio 2014: Nuevas apps para iOS and Android</li>
           </ul>
         </section>
 
@@ -478,10 +457,6 @@ Feature: Toggling sections
     When I click on the first collapsible section heading
     Then I see the content of the first section
     </code></pre>
-
-          <aside class="notes" data-markdown>
-            https://saucelabs.com/jobs/e605a9185d0f415b925a7bab8c61bdad
-          </aside>
         </section>
 
         <section>
@@ -598,16 +573,6 @@ Feature: Toggling sections
         </section>
 
         <section>
-          <h2>App para iOS</h2>
-
-          <ul>
-            <li>XCode 6</li>
-            <li>Grunt</li>
-            <li>Tests no están muy actuales porque hasta hace poco XCode no soportaba tests asíncronos.</li>
-          </ul>
-        </section>
-
-        <section>
           <h2>Contribuciones móviles</h2>
 
           <p>Al principio Mobile Web servía solo para leer Wikipedia.</p>
@@ -624,17 +589,11 @@ Feature: Toggling sections
         <section>
           <h2>Selfie apocalypse</h2>
 
-          <img class="fragment" src="img/selfies/1.jpg" style="position: absolute; left: 20%; top: 20%; width: 50%;">
-          <img class="fragment" src="img/selfies/2.jpg" style="position: absolute; left: 5%; width: 50%;">
-          <img class="fragment" src="img/selfies/3.jpg" style="position: absolute; right: 10%; bottom: 20%; width: 50%;">
-          <img class="fragment" src="img/selfies/4.jpg" style="position: absolute; right: 5%; top: 25%; width: 50%;">
-          <img class="fragment" src="img/selfies/5.jpg" style="position: absolute; left: 20%; top: 23%; width: 40%;">
-          <img class="fragment" src="img/selfies/6.jpg" style="position: absolute; left: 0; top: 25%; width: 40%;">
-          <img class="fragment" src="img/selfies/7.jpg" style="position: absolute; right: 35%; top: 30%; width: 30%;">
-          <img class="fragment" src="img/selfies/8.jpg" style="position: absolute; right: 0; bottom: 10%; width: 50%;">
+          <img src="img/selfies/1.jpg" style="position: absolute; left: 20%; top: 20%; width: 50%;">
+          <img src="img/selfies/2.jpg" style="position: absolute; width: 50%;">
+          <img src="img/selfies/3.jpg" style="position: absolute; right: 0; bottom: 20%; width: 50%;">
 
           <aside class="notes" data-markdown>
-            * apocalipsis de autofotos
             * la gente va a subir lo mismo que a Facebook o Instagram
             * hace poco lo quitamos
           </aside>
@@ -646,7 +605,7 @@ Feature: Toggling sections
           <p class="fragment">A quien le gusta escribir en el móvil?</p>
           <p class="fragment">A nadie. Pero la gente lo hace de todas formas.</p>
           <p class="fragment">El primer editor en Mobile Web era solo un experimento, pero los usuarios estaban muy interesados.</p>
-          <p class="fragment">En agosto más de 40K usuarios editaron con la versíon móvil y hiceron casi 200K cambios.</p>
+          <p class="fragment">En Agosto más de 40K usuarios editaron con la versíon móvil y hiceron casi 200K cambios.</p>
 
           <aside class="notes" data-markdown>
             * quien va a escribir un articulo de Wikipedia con su movil?
@@ -770,12 +729,7 @@ Feature: Toggling sections
             <li><a href="https://lists.wikimedia.org/mailman/listinfo/mobile-l">Mobile-l @ https://lists.wikimedia.org/</a></li>
             <li>#wikimedia-mobile @ irc.freenode.net</li>
             <li>Bugzilla</li>
-            <li>REA
           </ul>
-
-          <aside class="notes" data-markdown>
-            * estilo de articulos y talk pages
-          </aside>
         </section>
 
         <section>
@@ -826,7 +780,6 @@ $ vagrant enable-role mobilefrontend # solo una vez
 $ vagrant provision # solo una vez
 </code></pre>
 
-          <p>Ahora tu MediaWiki se puede ver en <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a>.</p>
           <p>Para apagar la máquina:</p>
 
           <pre><code>
@@ -857,10 +810,6 @@ $ vagrant suspend
         <section>
           <h2>Alcance de Wikipedia Zero</h2>
           <img alt="Wikipedia Zero map" src="img/zero-reach.png" style="width: 80%;">
-
-          <aside class="notes" data-markdown>
-            * Wikipedia Zero in South Africa https://www.youtube.com/watch?v=0nTVAmstteM
-          </aside>
         </section>
 
         <section>
@@ -900,6 +849,19 @@ $ vagrant suspend
         <section>
           <h2>San Francisco</h2>
           <img alt="San Francisco" src="img/sf5.jpg" style="width: 80%;">
+        </section>
+
+        <section>
+          <h2>Tech culture, meetups</h2>
+          <ul>
+            <li>Hear people talking about their newest pet projects on the bus.</li>
+            <li>Go to talks and presentations held by the best people in the industry.</li>
+            <li>But not only, lots of other events, festivals, happenings.</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * not only locals, many conferences
+          </aside>
         </section>
 
         <section>

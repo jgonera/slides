@@ -2,6 +2,10 @@
   text-align: left;
 }
 
+.reveal section {
+  height: 100%;
+}
+
 .reveal section img, .reveal blockquote, .reveal pre {
   border: none;
   background: transparent;

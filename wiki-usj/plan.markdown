@@ -62,7 +62,4 @@
     * Grants?
     * Volunteer
 
-Questions
-=========
-
-* Links to good selfies?
+YUVIS AND MONTES REQUEST (talk page styling)
