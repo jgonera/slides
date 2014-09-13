@@ -6,6 +6,11 @@
   height: 100%;
 }
 
+sup {
+  vertical-align: super !important;
+  font-size: 0.8em !important;
+}
+
 .reveal section img, .reveal blockquote, .reveal pre {
   border: none;
   background: transparent;
