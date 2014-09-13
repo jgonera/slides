@@ -7,8 +7,10 @@
 }
 
 sup {
+  position: relative;
   vertical-align: super !important;
   font-size: 0.8em !important;
+  top: -0.4em !important;
 }
 
 .reveal section img, .reveal blockquote, .reveal pre {
