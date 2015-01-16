@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Argument Validation</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="../reveal.js/css/theme/sky.css" id="theme">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../reveal.js/lib/css/zenburn.css">
+    <link rel="stylesheet" href="fix.css">
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="../reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section class="center">
+          <h1>Argument Validation</h1>
+          <h3>Juliusz Gonera</h3>
+          <p><small>January 16, 2015</small></p>
+        </section>
+
+        <section>
+          <h2>Avoiding mysterious methods</h2>
+          <pre><code class="ruby">
+geneva.external_transfer(
+  @sender.id,
+  @amount_micros,
+  @iso_currency_code,
+  @gift_credit.code,
+  @gift_credit.class.name
+)
+          </code></pre>
+          <p class="fragment">WTF?</p>
+        </section>
+
+        <section>
+          <h2>Avoiding mysterious methods</h2>
+          <pre><code class="ruby">
+def external_transfer(user_id,
+                      amount_micros,
+                      iso_currency_code,
+                      external_ref_id,
+                      external_ref_type)
+  ...
+end
+          </code></pre>
+          <p>Oh...</p>
+        </section>
+
+        <section>
+          <h2>Options hash to the rescue</h2>
+          <pre><code class="ruby">
+geneva.external_transfer(
+  user_id: @sender.id,
+  amount_micros: @amount_micros,
+  iso_currency_code: @iso_currency_code,
+  external_ref_id: @gift_credit.code,
+  external_ref_type: @gift_credit.class.name
+)
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Named arguments are awesome, but...</h2>
+<pre class="fragment">NoMethodError: undefined method `original_payment2' for nil:NilClass</pre>
+<pre class="fragment">RuntimeError: Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id</pre>
+<pre class="fragment">NoMethodError: undefined method `round' for "431.45":String</pre>
+        </section>
+
+        <section>
+          <h2>We want to fail early</h2>
+          <pre><code class="ruby">
+def external_transfer(options)
+  [
+    :user_id,
+    :amount_micros,
+    :external_ref_id,
+    :external_ref_type
+  ].each do |option|
+    raise ArgumentError if options[option].blank?
+  end
+  ...
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>We want to fail early</h2>
+          <pre><code class="ruby">
+def external_transfer(options)
+  validate_mandatory_options(options, [
+    :user_id, :account_type, :external_ref_id, :external_ref_type
+  ])
+  ...
+end
+          </code></pre>
+
+          <pre class="fragment"><code class="ruby">
+def validate_mandatory_options(options, mandatory_options)
+  mandatory_options.each do |option|
+    raise ArgumentError, "Argument #{option} is mandatory" if options[option].blank?
+  end
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Maybe we should be even stricter?</h2>
+          <pre><code class="ruby">
+unless options[:sender].is_a?(User)
+  raise ArgumentError,
+    "sender is #{options[:sender].class.name}, not a User"
+end
+unless options[:payment].is_a?(Payment2)
+  raise ArgumentError,
+    "payment is #{options[:payment].class.name}, not a Payment2"
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>This is getting out of hand</h2>
+          <pre><code class="ruby">
+validate_mandatory_options(options, [
+  :gift_credit,
+  :payment,
+  :sender,
+  :amount_micros,
+  :iso_currency_code,
+  :ip
+])
+validate_amount(options[:amount_micros], options[:iso_currency_code])
+
+unless options[:sender].is_a?(User)
+  raise ArgumentError, "sender is #{options[:sender].class.name}, not a User"
+end
+unless options[:payment].is_a?(Payment2)
+  raise ArgumentError, "payment is #{options[:payment].class.name}, not a Payment2"
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Ruby is magical, let's create a DSL</h2>
+          <pre><code class="ruby">
+validate_arg(options) do |o|
+  o.validate :gift_credit, is_a: GiftCredit, required: true
+  o.validate :payment, is_a: Payment2, required: true
+  o.validate :sender, is_a: User, required: true
+  o.validate :amount_micros, is_a: Integer, required: true
+  o.validate :iso_currency_code, is_a: String, required: true
+  o.validate :ip, is_a: String, required: true
+  o.validate :cvv
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>argument_validation gem</h2>
+          <pre><code class="ruby">
+require 'argument_validation'
+
+class YourClass
+  include ArgumentValidation::DSL
+
+  def your_method(argument, options = {})
+    # For non-hash based arguments, name is needed for error msg
+    validate_arg argument, is_a: String, name: "argument"
+
+    validate_arg(options) do |o|
+      # Validate type and make hash key required
+      o.validate :amount, is_a: Integer, required: true
+      # Validate type and leave hash key as optional
+      o.validate :comment, is_a: String
+      # Allow given hash key (see next slide)
+      o.validate :details
+    end
+  end
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>argument_validation gem</h2>
+          <pre><code class="ruby">
+your_object = YourClass.new
+
+# This will be fine
+your_object.your_method("test", amount: 3)
+your_object.your_method(
+  "test", amount: 3, comment: "hi", details: [1, 2, 3]
+)
+# This will raise ArgumentError (missing required hash keys)
+your_object.your_method("test")
+# This will raise ArgumentError (wrong type)
+your_object.your_method("test", amount: "3")
+# This will raise ArgumentError (:deetail is not a valid key)
+your_object.your_method("test", amount: "3", deetail: [1, 2, 3])
+          </code></pre>
+          <p><a href="https://git.musta.ch/airbnb/argument_validation">https://git.musta.ch/airbnb/argument_validation</a></p>
+        </section>
+
+        <section>
+          <h2>Heresy! Ruby is a duck-typed language!</h2>
+          <p>Then maybe this?</p>
+          <pre><code class="ruby">
+validate_arg(options) do |o|
+  o.validate :user, responds_to: [:first_name, :last_name]
+end
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Questions?</h2>
+          <ul>
+            <li class="fragment">Is this a good idea? Are we doing something fundamentally wrong?</li>
+            <li class="fragment">Will this lead to a story that will end up in The Daily WTF?</li>
+            <li class="fragment">Will it be useful if we switch to Ruby 2.1 keyword arguments? How would it need to change?</li>
+          </ul>
+          <pre class="fragment"><code class="ruby">
+def your_method(user:, amount:, currency:)
+  # Less cool, more yuck, user, user, user
+  validate_arg user, is_a: User, name: "user"
+  # Maybe this is possible using Ruby 2.1 local_variable_get?
+  validate_arg :user, is_a: User
+end
+          </code></pre>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="../reveal.js/lib/js/head.min.js"></script>
+    <script src="../reveal.js/js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: false,
+        //width: 1000,
+        //height: 700,
+        margin: 0.1,
+        maxScale: 10,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>
