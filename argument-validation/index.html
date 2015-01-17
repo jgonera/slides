@@ -23,7 +23,12 @@
         <section class="center">
           <h1>Argument Validation</h1>
           <h3>Juliusz Gonera</h3>
-          <p><small>January 16, 2015</small></p>
+          <p><small>January 16, 2015<br>Engineering Meeting, Airbnb</small></p>
+          <aside class="notes" data-markdown>
+          * short, questions at the end
+          * a bit controversial
+          * want to hear your opinion, not to sell it
+          </aside>
         </section>
 
         <section>
@@ -38,6 +43,9 @@ geneva.external_transfer(
 )
           </code></pre>
           <p class="fragment">WTF?</p>
+          <aside class="notes" data-markdown>
+          * maybe not the most cryptic example
+          </aside>
         </section>
 
         <section>
@@ -72,6 +80,9 @@ geneva.external_transfer(
 <pre class="fragment">NoMethodError: undefined method `original_payment2' for nil:NilClass</pre>
 <pre class="fragment">RuntimeError: Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id</pre>
 <pre class="fragment">NoMethodError: undefined method `round' for "431.45":String</pre>
+          <aside class="notes" data-markdown>
+          * sacrifice method signature
+          </aside>
         </section>
 
         <section>
@@ -123,6 +134,9 @@ unless options[:payment].is_a?(Payment2)
     "payment is #{options[:payment].class.name}, not a Payment2"
 end
           </code></pre>
+          <aside class="notes" data-markdown>
+          * a moment of doubt, are we using the right language?
+          </aside>
         </section>
 
         <section>
@@ -145,6 +159,9 @@ unless options[:payment].is_a?(Payment2)
   raise ArgumentError, "payment is #{options[:payment].class.name}, not a Payment2"
 end
           </code></pre>
+          <aside class="notes" data-markdown>
+          * something like this at the beginning of each method
+          </aside>
         </section>
 
         <section>
@@ -185,6 +202,9 @@ class YourClass
   end
 end
           </code></pre>
+          <aside class="notes" data-markdown>
+          * a gem because we use it in monorail and geneva
+          </aside>
         </section>
 
         <section>
@@ -232,6 +252,9 @@ def your_method(user:, amount:, currency:)
   validate_arg :user, is_a: User
 end
           </code></pre>
+          <aside class="notes" data-markdown>
+            * there are validations for models, but not methods, why?
+          </aside>
         </section>
 
       </div>
